@@ -27,7 +27,7 @@ export default async function ContactPage() {
             href={link.url}
             target="_blank"
             rel="noreferrer"
-            className="w-fit rounded-lg border border-neutral-800 px-4 py-2 text-sm text-neutral-300 hover:border-neutral-600 hover:text-white"
+            className="glass w-fit rounded-full px-4 py-2 text-sm text-neutral-300 transition-colors hover:bg-white/10 hover:text-white"
           >
             {link.label}
           </a>

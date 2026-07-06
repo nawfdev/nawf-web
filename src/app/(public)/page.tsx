@@ -2,6 +2,7 @@ import Link from "next/link";
 import { db } from "@/db";
 import { aboutContent, projects, posts } from "@/db/schema";
 import { desc, eq, asc } from "drizzle-orm";
+import { HeroSequence } from "@/components/hero-sequence";
 
 export const dynamic = "force-dynamic";
 
@@ -24,23 +25,29 @@ export default async function HomePage() {
 
   return (
     <div className="flex flex-col gap-20">
-      <section className="flex flex-col gap-6 py-8">
-        <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
-          {about?.headline ?? "Software Engineer"}
-        </h1>
-        <p className="max-w-xl text-lg leading-relaxed text-neutral-400">{about?.bio}</p>
-        {skills.length > 0 && (
-          <div className="flex flex-wrap gap-2 pt-2">
-            {skills.map((skill) => (
-              <span
-                key={skill}
-                className="rounded-full border border-neutral-700 px-3 py-1 text-xs text-neutral-300"
-              >
-                {skill}
-              </span>
-            ))}
+      <section className="-mx-6 -mt-12 sm:-mx-6">
+        <HeroSequence basePath="/hero/frame" frameCount={60}>
+          <div className="glass-strong w-full max-w-xl rounded-3xl p-6 sm:p-8">
+            <h1 className="text-3xl font-bold tracking-tight text-white sm:text-5xl">
+              {about?.headline ?? "Software Engineer"}
+            </h1>
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-neutral-200 sm:text-lg">
+              {about?.bio}
+            </p>
+            {skills.length > 0 && (
+              <div className="mt-4 flex flex-wrap gap-2">
+                {skills.map((skill) => (
+                  <span
+                    key={skill}
+                    className="rounded-full border border-white/20 px-3 py-1 text-xs text-neutral-200"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
-        )}
+        </HeroSequence>
       </section>
 
       {featuredProjects.length > 0 && (
@@ -56,7 +63,7 @@ export default async function HomePage() {
               <Link
                 key={p.id}
                 href={p.url ?? p.repoUrl ?? "/projects"}
-                className="group rounded-xl border border-neutral-800 p-5 transition-colors hover:border-neutral-600"
+                className="glass group rounded-2xl p-5 transition-colors hover:bg-white/10"
               >
                 <h3 className="font-medium text-white group-hover:text-blue-400">{p.title}</h3>
                 <p className="mt-2 line-clamp-3 text-sm text-neutral-400">{p.description}</p>
@@ -79,7 +86,7 @@ export default async function HomePage() {
               <Link
                 key={post.id}
                 href={`/blog/${post.slug}`}
-                className="group rounded-xl border border-neutral-800 p-5 transition-colors hover:border-neutral-600"
+                className="glass group rounded-2xl p-5 transition-colors hover:bg-white/10"
               >
                 <h3 className="font-medium text-white group-hover:text-blue-400">{post.title}</h3>
                 {post.excerpt && (

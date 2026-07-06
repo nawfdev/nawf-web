@@ -20,7 +20,7 @@ export default async function BlogPage() {
           <Link
             key={post.id}
             href={`/blog/${post.slug}`}
-            className="group rounded-xl border border-neutral-800 p-5 transition-colors hover:border-neutral-600"
+            className="glass group rounded-2xl p-5 transition-colors hover:bg-white/10"
           >
             <h2 className="font-medium text-white group-hover:text-blue-400">{post.title}</h2>
             {post.excerpt && <p className="mt-2 text-sm text-neutral-400">{post.excerpt}</p>}

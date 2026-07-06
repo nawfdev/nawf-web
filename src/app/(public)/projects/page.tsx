@@ -19,7 +19,7 @@ export default async function ProjectsPage() {
               href={p.url ?? p.repoUrl ?? "#"}
               target="_blank"
               rel="noreferrer"
-              className="group flex flex-col gap-3 rounded-xl border border-neutral-800 p-5 transition-colors hover:border-neutral-600"
+              className="glass group flex flex-col gap-3 rounded-2xl p-5 transition-colors hover:bg-white/10"
             >
               <h2 className="font-medium text-white group-hover:text-blue-400">{p.title}</h2>
               <p className="text-sm text-neutral-400">{p.description}</p>
