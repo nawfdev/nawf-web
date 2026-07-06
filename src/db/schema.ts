@@ -1,15 +1,15 @@
-import { pgTable, serial, text, varchar, timestamp, boolean, integer } from "drizzle-orm/pg-core";
+import { mysqlTable, int, text, varchar, timestamp, boolean } from "drizzle-orm/mysql-core";
 
-export const adminUsers = pgTable("admin_users", {
-  id: serial("id").primaryKey(),
+export const adminUsers = mysqlTable("admin_users", {
+  id: int("id").autoincrement().primaryKey(),
   email: varchar("email", { length: 255 }).notNull().unique(),
   passwordHash: text("password_hash").notNull(),
   name: varchar("name", { length: 255 }),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
-export const posts = pgTable("posts", {
-  id: serial("id").primaryKey(),
+export const posts = mysqlTable("posts", {
+  id: int("id").autoincrement().primaryKey(),
   title: varchar("title", { length: 255 }).notNull(),
   slug: varchar("slug", { length: 255 }).notNull().unique(),
   excerpt: text("excerpt"),
@@ -21,8 +21,8 @@ export const posts = pgTable("posts", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
-export const projects = pgTable("projects", {
-  id: serial("id").primaryKey(),
+export const projects = mysqlTable("projects", {
+  id: int("id").autoincrement().primaryKey(),
   title: varchar("title", { length: 255 }).notNull(),
   slug: varchar("slug", { length: 255 }).notNull().unique(),
   description: text("description").notNull(),
@@ -31,13 +31,13 @@ export const projects = pgTable("projects", {
   repoUrl: text("repo_url"),
   tags: text("tags"),
   featured: boolean("featured").default(false).notNull(),
-  sortOrder: integer("sort_order").default(0).notNull(),
+  sortOrder: int("sort_order").default(0).notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
-export const aboutContent = pgTable("about_content", {
-  id: serial("id").primaryKey(),
+export const aboutContent = mysqlTable("about_content", {
+  id: int("id").autoincrement().primaryKey(),
   headline: varchar("headline", { length: 255 }).notNull(),
   bio: text("bio").notNull(),
   avatarUrl: text("avatar_url"),
@@ -45,8 +45,8 @@ export const aboutContent = pgTable("about_content", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
-export const contactInfo = pgTable("contact_info", {
-  id: serial("id").primaryKey(),
+export const contactInfo = mysqlTable("contact_info", {
+  id: int("id").autoincrement().primaryKey(),
   email: varchar("email", { length: 255 }),
   socialLinks: text("social_links"),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),

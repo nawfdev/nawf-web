@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { db } from "@/db";
 import { posts } from "@/db/schema";
 import { auth } from "@/auth";
-import { desc } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 
 export async function GET() {
   const session = await auth();
@@ -22,7 +22,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "title, slug and content are required" }, { status: 400 });
   }
 
-  const [created] = await db
+  const [{ id: insertId }] = await db
     .insert(posts)
     .values({
       title,
@@ -33,7 +33,9 @@ export async function POST(request: Request) {
       published: !!published,
       publishedAt: published ? new Date() : null,
     })
-    .returning();
+    .$returningId();
+
+  const [created] = await db.select().from(posts).where(eq(posts.id, insertId)).limit(1);
 
   return NextResponse.json(created, { status: 201 });
 }

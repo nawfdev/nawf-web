@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { db } from "@/db";
 import { projects } from "@/db/schema";
 import { auth } from "@/auth";
-import { asc } from "drizzle-orm";
+import { asc, eq } from "drizzle-orm";
 
 export async function GET() {
   const all = await db.select().from(projects).orderBy(asc(projects.sortOrder));
@@ -20,7 +20,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "title, slug and description are required" }, { status: 400 });
   }
 
-  const [created] = await db
+  const [{ id: insertId }] = await db
     .insert(projects)
     .values({
       title,
@@ -33,7 +33,9 @@ export async function POST(request: Request) {
       featured: !!featured,
       sortOrder: sortOrder ?? 0,
     })
-    .returning();
+    .$returningId();
+
+  const [created] = await db.select().from(projects).where(eq(projects.id, insertId)).limit(1);
 
   return NextResponse.json(created, { status: 201 });
 }

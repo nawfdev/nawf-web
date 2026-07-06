@@ -4,11 +4,11 @@ Personal portfolio site with a dashboard for managing blog posts, projects, abou
 
 ## Stack
 
-Next.js 16 (App Router) · TypeScript · Tailwind CSS v4 · Drizzle ORM · PostgreSQL · Auth.js (credentials login)
+Next.js 16 (App Router) · TypeScript · Tailwind CSS v4 · Drizzle ORM · MySQL · Auth.js (credentials login)
 
 ## Getting started
 
-1. Start Postgres:
+1. Start MySQL:
    ```bash
    docker compose up -d
    ```

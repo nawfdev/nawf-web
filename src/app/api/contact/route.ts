@@ -14,18 +14,28 @@ export async function PUT(request: Request) {
   const [existing] = await db.select().from(contactInfo).limit(1);
 
   if (!existing) {
-    const [created] = await db
+    const [{ id: insertId }] = await db
       .insert(contactInfo)
       .values({ email, socialLinks })
-      .returning();
+      .$returningId();
+    const [created] = await db
+      .select()
+      .from(contactInfo)
+      .where(eq(contactInfo.id, insertId))
+      .limit(1);
     return NextResponse.json(created, { status: 201 });
   }
 
-  const [updated] = await db
+  await db
     .update(contactInfo)
     .set({ email, socialLinks, updatedAt: new Date() })
+    .where(eq(contactInfo.id, existing.id));
+
+  const [updated] = await db
+    .select()
+    .from(contactInfo)
     .where(eq(contactInfo.id, existing.id))
-    .returning();
+    .limit(1);
 
   return NextResponse.json(updated);
 }

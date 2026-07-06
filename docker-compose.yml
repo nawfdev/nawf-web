@@ -1,15 +1,16 @@
 services:
   db:
-    image: postgres:16-alpine
+    image: mysql:8.4
     restart: unless-stopped
     environment:
-      POSTGRES_USER: portfolio
-      POSTGRES_PASSWORD: portfolio
-      POSTGRES_DB: portfolio
+      MYSQL_ROOT_PASSWORD: portfolio
+      MYSQL_USER: portfolio
+      MYSQL_PASSWORD: portfolio
+      MYSQL_DATABASE: portfolio
     ports:
-      - "5432:5432"
+      - "3306:3306"
     volumes:
-      - portfolio_db_data:/var/lib/postgresql/data
+      - portfolio_db_data:/var/lib/mysql
 
 volumes:
   portfolio_db_data:

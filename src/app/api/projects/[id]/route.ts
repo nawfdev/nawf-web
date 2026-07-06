@@ -15,7 +15,7 @@ export async function PUT(
   const body = await request.json();
   const { title, slug, description, image, url, repoUrl, tags, featured, sortOrder } = body;
 
-  const [updated] = await db
+  await db
     .update(projects)
     .set({
       title,
@@ -29,8 +29,9 @@ export async function PUT(
       sortOrder: sortOrder ?? 0,
       updatedAt: new Date(),
     })
-    .where(eq(projects.id, Number(id)))
-    .returning();
+    .where(eq(projects.id, Number(id)));
+
+  const [updated] = await db.select().from(projects).where(eq(projects.id, Number(id))).limit(1);
 
   if (!updated) return NextResponse.json({ error: "Not found" }, { status: 404 });
   return NextResponse.json(updated);

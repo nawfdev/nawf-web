@@ -18,7 +18,7 @@ export async function PUT(
   const [existing] = await db.select().from(posts).where(eq(posts.id, Number(id))).limit(1);
   if (!existing) return NextResponse.json({ error: "Not found" }, { status: 404 });
 
-  const [updated] = await db
+  await db
     .update(posts)
     .set({
       title,
@@ -30,8 +30,9 @@ export async function PUT(
       publishedAt: published && !existing.publishedAt ? new Date() : existing.publishedAt,
       updatedAt: new Date(),
     })
-    .where(eq(posts.id, Number(id)))
-    .returning();
+    .where(eq(posts.id, Number(id)));
+
+  const [updated] = await db.select().from(posts).where(eq(posts.id, Number(id))).limit(1);
 
   return NextResponse.json(updated);
 }
