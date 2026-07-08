@@ -173,6 +173,21 @@ details[open] .acc-content {
   font-weight: 600;
 }
 
+/* Soft blurred glow marker sitting above the active tab. */
+.nav-item.active::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.9);
+  filter: blur(3px);
+  border-radius: 9999px;
+  pointer-events: none;
+}
+
 /* One-shot entrance for the hero panel on page load. */
 .hero-in {
   animation: hero-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
