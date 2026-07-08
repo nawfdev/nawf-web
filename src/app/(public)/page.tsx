@@ -98,6 +98,7 @@ export default async function HomePage() {
   const headlineLead = headlineWords.join(" ");
   const featuredProjects = allProjects.filter((p) => p.featured).slice(0, 3);
   const [firstProject, ...restProjects] = featuredProjects;
+  const moreProjects = allProjects.filter((p) => !p.featured).slice(0, 5);
 
   /* Real language split across public repos on github.com/nawfdev. */
   const languages = [
@@ -306,6 +307,73 @@ export default async function HomePage() {
               </Reveal>
             ))}
           </div>
+        </section>
+      )}
+
+      {/* Project index: dense stack/link directory, no repeated prose */}
+      {moreProjects.length > 0 && (
+        <section className="flex flex-col gap-6">
+          <Reveal>
+            <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+              Also in the stack
+            </h2>
+          </Reveal>
+          <Reveal delay={80}>
+            <div className="glass overflow-hidden rounded-2xl">
+              <div className="hidden grid-cols-[1.4fr_2fr_auto] gap-4 border-b border-white/10 px-6 py-3 text-xs uppercase tracking-wider text-neutral-500 sm:grid">
+                <span>Project</span>
+                <span>Stack</span>
+                <span className="text-right">Link</span>
+              </div>
+              <div className="flex flex-col divide-y divide-white/10">
+                {moreProjects.map((p, i) => {
+                  const tags =
+                    p.tags?.split(",").map((t) => t.trim()).filter(Boolean) ?? [];
+                  return (
+                    <Reveal key={p.id} delay={i * 60}>
+                      <div className="grid grid-cols-1 items-center gap-3 px-6 py-4 sm:grid-cols-[1.4fr_2fr_auto] sm:gap-4">
+                        <h3 className="font-medium text-white">{p.title}</h3>
+                        <div className="flex flex-wrap gap-1.5">
+                          {tags.map((tag) => (
+                            <span
+                              key={tag}
+                              className="rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 font-mono text-xs text-neutral-400"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                        <div className="flex shrink-0 items-center gap-4 sm:justify-end">
+                          {p.url && (
+                            <a
+                              href={p.url}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="inline-flex items-center gap-1 text-sm text-sky-400 hover:text-sky-300"
+                            >
+                              Live
+                              <ArrowUpRight />
+                            </a>
+                          )}
+                          {p.repoUrl && (
+                            <a
+                              href={p.repoUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="inline-flex items-center gap-1 text-sm text-neutral-300 hover:text-white"
+                            >
+                              Code
+                              <ArrowUpRight />
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    </Reveal>
+                  );
+                })}
+              </div>
+            </div>
+          </Reveal>
         </section>
       )}
 
