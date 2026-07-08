@@ -169,50 +169,6 @@ export default async function HomePage() {
         )}
       </section>
 
-      {/* Language split: GitHub-style composition bar from real repo data */}
-      <Reveal>
-        <section className="glass rounded-2xl p-6 sm:p-8">
-          <div className="flex items-baseline justify-between gap-4">
-            <h2 className="text-lg font-semibold tracking-tight text-white">
-              What my repos are written in
-            </h2>
-            <span className="shrink-0 font-mono text-xs text-neutral-500">
-              {totalRepos} public repos
-            </span>
-          </div>
-          <div className="mt-5 flex h-3 w-full overflow-hidden rounded-full">
-            {languages.map((l) => (
-              <div
-                key={l.name}
-                style={{
-                  width: `${(l.repos / totalRepos) * 100}%`,
-                  backgroundColor: l.color,
-                }}
-                className="transition-all duration-500 hover:opacity-80"
-                title={`${l.name}: ${l.repos} repos`}
-              />
-            ))}
-          </div>
-          <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2">
-            {languages.map((l) => (
-              <span
-                key={l.name}
-                className="flex items-center gap-2 text-sm text-neutral-300"
-              >
-                <span
-                  className="h-2.5 w-2.5 rounded-sm"
-                  style={{ backgroundColor: l.color }}
-                />
-                {l.name}
-                <span className="font-mono text-xs text-neutral-500">
-                  {Math.round((l.repos / totalRepos) * 100)}%
-                </span>
-              </span>
-            ))}
-          </div>
-        </section>
-      </Reveal>
-
       {/* Work: featured showcase + dense index, one section instead of two competing headers */}
       {(featuredProjects.length > 0 || moreProjects.length > 0) && (
         <section className="flex flex-col gap-8">
@@ -464,6 +420,49 @@ export default async function HomePage() {
               className="h-auto w-full min-w-[640px] opacity-80 invert hue-rotate-180 brightness-110"
               loading="lazy"
             />
+          </div>
+        </Reveal>
+
+        <Reveal delay={150}>
+          <div className="glass rounded-2xl p-6 sm:p-8">
+            <div className="flex items-baseline justify-between gap-4">
+              <h3 className="text-sm font-semibold tracking-tight text-white">
+                Written in
+              </h3>
+              <span className="shrink-0 font-mono text-xs text-neutral-500">
+                {totalRepos} public repos
+              </span>
+            </div>
+            <div className="mt-5 flex h-3 w-full overflow-hidden rounded-full">
+              {languages.map((l) => (
+                <div
+                  key={l.name}
+                  style={{
+                    width: `${(l.repos / totalRepos) * 100}%`,
+                    backgroundColor: l.color,
+                  }}
+                  className="transition-all duration-500 hover:opacity-80"
+                  title={`${l.name}: ${l.repos} repos`}
+                />
+              ))}
+            </div>
+            <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2">
+              {languages.map((l) => (
+                <span
+                  key={l.name}
+                  className="flex items-center gap-2 text-sm text-neutral-300"
+                >
+                  <span
+                    className="h-2.5 w-2.5 rounded-sm"
+                    style={{ backgroundColor: l.color }}
+                  />
+                  {l.name}
+                  <span className="font-mono text-xs text-neutral-500">
+                    {Math.round((l.repos / totalRepos) * 100)}%
+                  </span>
+                </span>
+              ))}
+            </div>
           </div>
         </Reveal>
       </section>
