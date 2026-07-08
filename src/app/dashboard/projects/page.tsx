@@ -26,7 +26,7 @@ export default async function DashboardProjectsPage() {
           >
             <div>
               <p className="font-medium text-white">
-                {p.title} {p.featured && <span className="text-xs text-blue-400">★ featured</span>}
+                {p.title} {p.featured && <span className="text-xs text-sky-400">★ featured</span>}
               </p>
               <p className="text-xs text-neutral-500">/{p.slug}</p>
             </div>

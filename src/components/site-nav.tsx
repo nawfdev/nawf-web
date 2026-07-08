@@ -9,7 +9,6 @@ const links = [
   { href: "/", label: "Home" },
   { href: "/projects", label: "Projects" },
   { href: "/blog", label: "Blog" },
-  { href: "/contact", label: "Contact" },
 ];
 
 export function SiteNav() {
@@ -18,7 +17,7 @@ export function SiteNav() {
 
   return (
     <header className="sticky top-4 z-50 flex justify-center px-4">
-      <nav className="glass flex w-full max-w-xl items-center justify-between gap-2 rounded-full px-4 py-2 shadow-lg shadow-black/20 sm:px-2">
+      <nav className="glass-dark flex w-full max-w-xl items-center justify-between gap-2 rounded-full px-4 py-2 sm:px-2">
         <Link href="/" className="px-3 py-1.5 text-sm font-semibold text-white">
           nawf.dev
         </Link>
@@ -32,19 +31,31 @@ export function SiteNav() {
               className={cn(
                 "rounded-full px-3.5 py-1.5 text-sm transition-colors",
                 pathname === l.href
-                  ? "bg-white/15 text-white"
+                  ? "bg-sky-500/15 text-sky-300"
                   : "text-neutral-300 hover:text-white"
               )}
             >
               {l.label}
             </Link>
           ))}
+          <Link
+            href="/contact"
+            className={cn(
+              "press ml-1 rounded-full px-4 py-1.5 text-sm font-medium transition-colors",
+              pathname === "/contact"
+                ? "bg-sky-400 text-white"
+                : "bg-sky-500 text-white hover:bg-sky-400"
+            )}
+          >
+            Contact
+          </Link>
         </div>
 
         {/* Mobile toggle */}
         <button
           onClick={() => setOpen((o) => !o)}
           aria-label="Toggle menu"
+          aria-expanded={open}
           className="flex h-8 w-8 items-center justify-center rounded-full text-neutral-200 sm:hidden"
         >
           <span className="relative block h-4 w-5">
@@ -72,7 +83,7 @@ export function SiteNav() {
 
       {/* Mobile dropdown */}
       {open && (
-        <div className="glass absolute top-16 flex w-[calc(100%-2rem)] max-w-xl flex-col gap-1 rounded-3xl p-2 sm:hidden">
+        <div className="glass-dark absolute top-16 flex w-[calc(100%-2rem)] max-w-xl flex-col gap-1 rounded-2xl p-2 sm:hidden">
           {links.map((l) => (
             <Link
               key={l.href}
@@ -81,13 +92,20 @@ export function SiteNav() {
               className={cn(
                 "rounded-2xl px-4 py-2.5 text-sm transition-colors",
                 pathname === l.href
-                  ? "bg-white/15 text-white"
+                  ? "bg-sky-500/15 text-sky-300"
                   : "text-neutral-300 hover:text-white"
               )}
             >
               {l.label}
             </Link>
           ))}
+          <Link
+            href="/contact"
+            onClick={() => setOpen(false)}
+            className="rounded-2xl bg-sky-500 px-4 py-2.5 text-sm font-medium text-white"
+          >
+            Contact
+          </Link>
         </div>
       )}
     </header>

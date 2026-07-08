@@ -1,4 +1,5 @@
-const { createServer } = require("http");
+/* eslint-disable @typescript-eslint/no-require-imports */
+const { createServer } = require("node:http");
 const next = require("next");
 
 const port = process.env.PORT || 3000;

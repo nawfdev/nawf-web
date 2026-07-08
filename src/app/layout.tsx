@@ -12,9 +12,29 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://nawf.dev";
+
 export const metadata: Metadata = {
-  title: "Nawfal — Software Engineer",
-  description: "Portfolio, projects and blog.",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Nawfal — Software Engineer",
+    template: "%s — nawf.dev",
+  },
+  description:
+    "Full-stack developer building web platforms, POS systems, and automation tools.",
+  openGraph: {
+    type: "website",
+    siteName: "nawf.dev",
+    title: "Nawfal — Software Engineer",
+    description:
+      "Full-stack developer building web platforms, POS systems, and automation tools.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Nawfal — Software Engineer",
+    description:
+      "Full-stack developer building web platforms, POS systems, and automation tools.",
+  },
 };
 
 export default function RootLayout({

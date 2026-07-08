@@ -17,7 +17,7 @@ export function DashboardNav() {
   const pathname = usePathname();
 
   return (
-    <aside className="w-56 shrink-0 border-r border-neutral-800 p-4 flex flex-col justify-between min-h-screen">
+    <aside className="glass sticky top-0 flex min-h-[100dvh] w-56 shrink-0 flex-col justify-between border-y-0 border-l-0 p-4">
       <div>
         <Link href="/" className="block px-2 pb-6 font-semibold text-white">
           nawf.dev
@@ -28,10 +28,10 @@ export function DashboardNav() {
               key={l.href}
               href={l.href}
               className={cn(
-                "rounded-lg px-3 py-2 text-sm transition-colors",
+                "rounded-full px-3.5 py-2 text-sm transition-colors",
                 pathname === l.href
-                  ? "bg-blue-600 text-white"
-                  : "text-neutral-400 hover:bg-neutral-800 hover:text-white"
+                  ? "bg-white/15 text-white"
+                  : "text-neutral-400 hover:bg-white/10 hover:text-white"
               )}
             >
               {l.label}
@@ -41,7 +41,7 @@ export function DashboardNav() {
       </div>
       <button
         onClick={() => signOut({ callbackUrl: "/" })}
-        className="rounded-lg px-3 py-2 text-left text-sm text-neutral-400 hover:bg-neutral-800 hover:text-white"
+        className="press rounded-full px-3.5 py-2 text-left text-sm text-neutral-400 transition-colors hover:bg-white/10 hover:text-white"
       >
         Sign out
       </button>
