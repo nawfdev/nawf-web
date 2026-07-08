@@ -3,6 +3,7 @@ import { db } from "@/db";
 import { aboutContent, projects, posts } from "@/db/schema";
 import { desc, eq, asc } from "drizzle-orm";
 import { Reveal } from "@/components/reveal";
+import { ArrowUpRight } from "@/components/icons/arrow-up-right";
 
 export const revalidate = 60;
 
@@ -266,7 +267,10 @@ export default async function HomePage() {
                       ))}
                     </div>
                   )}
-                  <span className="text-sm text-sky-400">{"Open project ↗︎"}</span>
+                  <span className="inline-flex items-center gap-1 text-sm text-sky-400">
+                    Open project
+                    <ArrowUpRight />
+                  </span>
                 </div>
               </Link>
             </Reveal>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SiteNav } from "@/components/site-nav";
+import { ArrowUpRight } from "@/components/icons/arrow-up-right";
 
 export default function PublicLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -45,9 +46,10 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
                 href="https://github.com/nawfdev"
                 target="_blank"
                 rel="noreferrer"
-                className="w-fit transition-colors hover:text-white"
+                className="inline-flex w-fit items-center gap-1 transition-colors hover:text-white"
               >
-                {"GitHub ↗︎"}
+                GitHub
+                <ArrowUpRight />
               </a>
               <a
                 href="mailto:ngnawfal808@gmail.com"

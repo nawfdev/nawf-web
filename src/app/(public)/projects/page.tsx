@@ -2,6 +2,7 @@ import { db } from "@/db";
 import { projects } from "@/db/schema";
 import { asc } from "drizzle-orm";
 import { Reveal } from "@/components/reveal";
+import { ArrowUpRight } from "@/components/icons/arrow-up-right";
 
 export const revalidate = 60;
 
@@ -54,7 +55,7 @@ export default async function ProjectsPage() {
                       </h2>
                       {href && (
                         <span className="text-neutral-500 transition-colors group-hover:text-sky-400">
-                          {"↗︎"}
+                          <ArrowUpRight />
                         </span>
                       )}
                     </div>

@@ -1,6 +1,7 @@
 import { db } from "@/db";
 import { contactInfo } from "@/db/schema";
 import { Reveal } from "@/components/reveal";
+import { ArrowUpRight } from "@/components/icons/arrow-up-right";
 
 export const revalidate = 60;
 
@@ -47,10 +48,10 @@ export default async function ContactPage() {
                   href={link.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="press rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-neutral-200 transition-colors hover:bg-white/10 hover:text-white"
+                  className="press inline-flex items-center gap-1 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-neutral-200 transition-colors hover:bg-white/10 hover:text-white"
                 >
                   {link.label}
-                  {" ↗︎"}
+                  <ArrowUpRight />
                 </a>
               ))}
             </div>
