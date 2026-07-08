@@ -97,7 +97,6 @@ export default async function HomePage() {
   const headlineLast = headlineWords.pop();
   const headlineLead = headlineWords.join(" ");
   const featuredProjects = allProjects.filter((p) => p.featured).slice(0, 3);
-  const moreProjects = allProjects.filter((p) => !p.featured).slice(0, 5);
   const [firstProject, ...restProjects] = featuredProjects;
 
   /* Real language split across public repos on github.com/nawfdev. */
@@ -306,55 +305,6 @@ export default async function HomePage() {
                 </Link>
               </Reveal>
             ))}
-          </div>
-        </section>
-      )}
-
-      {/* More builds: compact hairline rows */}
-      {moreProjects.length > 0 && (
-        <section className="flex flex-col gap-6">
-          <Reveal>
-            <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-              More builds
-            </h2>
-          </Reveal>
-          <div className="flex flex-col divide-y divide-white/10 border-t border-white/10">
-            {moreProjects.map((p, i) => {
-              const href = p.url ?? p.repoUrl;
-              const inner = (
-                <>
-                  <div className="min-w-0">
-                    <h3 className="font-medium text-white transition-colors group-hover:text-sky-400">
-                      {p.title}
-                    </h3>
-                    <p className="mt-1 line-clamp-1 text-sm text-neutral-400">
-                      {p.description}
-                    </p>
-                  </div>
-                  <span className="shrink-0 font-mono text-xs text-neutral-500">
-                    {p.tags?.split(",")[0]?.trim()}
-                  </span>
-                </>
-              );
-              return (
-                <Reveal key={p.id} delay={i * 80}>
-                  {href ? (
-                    <a
-                      href={href}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="group flex items-baseline justify-between gap-6 py-5 transition-transform duration-300 hover:translate-x-2"
-                    >
-                      {inner}
-                    </a>
-                  ) : (
-                    <div className="flex items-baseline justify-between gap-6 py-5">
-                      {inner}
-                    </div>
-                  )}
-                </Reveal>
-              );
-            })}
           </div>
         </section>
       )}
