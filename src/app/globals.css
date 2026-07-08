@@ -137,19 +137,9 @@ details[open] .acc-content {
   }
 }
 
-/* Nav links: idle standby glow, breathing sky-400 halo. */
+/* Nav links: idle standby glow, steady sky-400 halo (no blinking). */
 .nav-glow {
-  animation: nav-glow 3.2s ease-in-out infinite;
-}
-
-@keyframes nav-glow {
-  0%,
-  100% {
-    box-shadow: 0 0 0 rgba(56, 189, 248, 0);
-  }
-  50% {
-    box-shadow: 0 0 10px 1px rgba(56, 189, 248, 0.35);
-  }
+  box-shadow: 0 0 10px 1px rgba(56, 189, 248, 0.35);
 }
 
 /* Nav links: bright spike on click, settles back to standby glow. */
