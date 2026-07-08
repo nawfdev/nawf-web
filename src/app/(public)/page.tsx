@@ -407,25 +407,31 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Process: one glass panel, four columns */}
-      <section className="flex flex-col gap-8">
+      {/* Process: numbered timeline, vertical on mobile, horizontal on desktop */}
+      <section className="flex flex-col gap-10">
         <Reveal>
           <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
             How I work
           </h2>
         </Reveal>
-        <Reveal delay={100}>
-          <div className="glass grid divide-y divide-white/10 rounded-2xl md:grid-cols-4 md:divide-x md:divide-y-0">
-            {process.map((step) => (
-              <div key={step.title} className="p-6 lg:p-8">
-                <h3 className="font-semibold text-white">{step.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-neutral-400">
-                  {step.description}
-                </p>
+        <div className="relative flex flex-col gap-8 sm:grid sm:grid-cols-4 sm:gap-6">
+          <div className="absolute left-5 top-5 bottom-5 w-px bg-white/10 sm:left-[12.5%] sm:right-[12.5%] sm:top-5 sm:bottom-auto sm:h-px sm:w-auto" />
+          {process.map((step, i) => (
+            <Reveal key={step.title} delay={i * 100}>
+              <div className="relative flex gap-4 sm:flex-col sm:gap-5">
+                <span className="glass-accent relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full font-mono text-sm text-sky-300">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <div className="flex-1 sm:pt-1">
+                  <h3 className="font-semibold text-white">{step.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-neutral-400">
+                    {step.description}
+                  </p>
+                </div>
               </div>
-            ))}
-          </div>
-        </Reveal>
+            </Reveal>
+          ))}
+        </div>
       </section>
 
       {/* GitHub activity: real contribution graph */}
