@@ -275,56 +275,35 @@ export default async function HomePage() {
             </h3>
           </Reveal>
           <Reveal delay={80}>
-            <div className="glass overflow-hidden rounded-2xl">
-              <div className="hidden grid-cols-[1.4fr_2fr_auto] gap-4 border-b border-white/10 px-6 py-3 text-xs uppercase tracking-wider text-neutral-500 sm:grid">
-                <span>Project</span>
-                <span>Stack</span>
-                <span className="text-right">Link</span>
-              </div>
-              <div className="flex flex-col divide-y divide-white/10">
-                {moreProjects.map((p, i) => {
+            <div className="-mx-6 overflow-x-auto px-6 pb-2 [mask-image:linear-gradient(to_right,transparent,black_16px,black_calc(100%-16px),transparent)]">
+              <div className="flex snap-x snap-mandatory gap-4">
+                {moreProjects.map((p) => {
                   const tags =
                     p.tags?.split(",").map((t) => t.trim()).filter(Boolean) ?? [];
+                  const href = p.url ?? p.repoUrl;
                   return (
-                    <Reveal key={p.id} delay={i * 60}>
-                      <div className="grid grid-cols-1 items-center gap-3 px-6 py-4 sm:grid-cols-[1.4fr_2fr_auto] sm:gap-4">
-                        <h3 className="font-medium text-white">{p.title}</h3>
-                        <div className="flex flex-wrap gap-1.5">
-                          {tags.map((tag) => (
-                            <span
-                              key={tag}
-                              className="rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 font-mono text-xs text-neutral-400"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                        <div className="flex shrink-0 items-center gap-4 sm:justify-end">
-                          {p.url && (
-                            <a
-                              href={p.url}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="inline-flex items-center gap-1 text-sm text-sky-400 hover:text-sky-300"
-                            >
-                              Live
-                              <ArrowUpRight />
-                            </a>
-                          )}
-                          {p.repoUrl && (
-                            <a
-                              href={p.repoUrl}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="inline-flex items-center gap-1 text-sm text-neutral-300 hover:text-white"
-                            >
-                              Code
-                              <ArrowUpRight />
-                            </a>
-                          )}
-                        </div>
-                      </div>
-                    </Reveal>
+                    <div
+                      key={p.id}
+                      className="card-lift glass flex w-56 shrink-0 snap-start flex-col gap-3 rounded-2xl p-5"
+                    >
+                      <h3 className="font-medium text-white">{p.title}</h3>
+                      {tags[0] && (
+                        <span className="font-mono text-xs text-neutral-500">
+                          {tags[0]}
+                        </span>
+                      )}
+                      {href && (
+                        <a
+                          href={href}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="mt-auto inline-flex items-center gap-1 text-sm text-sky-400 hover:text-sky-300"
+                        >
+                          {p.url ? "Live" : "Code"}
+                          <ArrowUpRight />
+                        </a>
+                      )}
+                    </div>
                   );
                 })}
               </div>
