@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 const links = [
@@ -14,6 +14,14 @@ const links = [
 export function SiteNav() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [flashHref, setFlashHref] = useState<string | null>(null);
+  const flashTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  function flash(href: string) {
+    if (flashTimeout.current) clearTimeout(flashTimeout.current);
+    setFlashHref(href);
+    flashTimeout.current = setTimeout(() => setFlashHref(null), 600);
+  }
 
   return (
     <header className="sticky top-4 z-50 flex justify-center px-4">
@@ -28,8 +36,10 @@ export function SiteNav() {
             <Link
               key={l.href}
               href={l.href}
+              onClick={() => flash(l.href)}
               className={cn(
-                "rounded-full px-3.5 py-1.5 text-sm transition-colors",
+                "nav-glow rounded-full px-3.5 py-1.5 text-sm transition-colors",
+                flashHref === l.href && "nav-flash",
                 pathname === l.href
                   ? "bg-sky-500/15 text-sky-300"
                   : "text-neutral-300 hover:text-white"
@@ -40,8 +50,10 @@ export function SiteNav() {
           ))}
           <Link
             href="/contact"
+            onClick={() => flash("/contact")}
             className={cn(
-              "press ml-1 rounded-full px-4 py-1.5 text-sm font-medium transition-colors",
+              "nav-glow press ml-1 rounded-full px-4 py-1.5 text-sm font-medium transition-colors",
+              flashHref === "/contact" && "nav-flash",
               pathname === "/contact"
                 ? "bg-sky-400 text-white"
                 : "bg-sky-500 text-white hover:bg-sky-400"
@@ -88,9 +100,13 @@ export function SiteNav() {
             <Link
               key={l.href}
               href={l.href}
-              onClick={() => setOpen(false)}
+              onClick={() => {
+                flash(l.href);
+                setOpen(false);
+              }}
               className={cn(
-                "rounded-2xl px-4 py-2.5 text-sm transition-colors",
+                "nav-glow rounded-2xl px-4 py-2.5 text-sm transition-colors",
+                flashHref === l.href && "nav-flash",
                 pathname === l.href
                   ? "bg-sky-500/15 text-sky-300"
                   : "text-neutral-300 hover:text-white"
@@ -101,8 +117,14 @@ export function SiteNav() {
           ))}
           <Link
             href="/contact"
-            onClick={() => setOpen(false)}
-            className="rounded-2xl bg-sky-500 px-4 py-2.5 text-sm font-medium text-white"
+            onClick={() => {
+              flash("/contact");
+              setOpen(false);
+            }}
+            className={cn(
+              "nav-glow rounded-2xl bg-sky-500 px-4 py-2.5 text-sm font-medium text-white",
+              flashHref === "/contact" && "nav-flash"
+            )}
           >
             Contact
           </Link>

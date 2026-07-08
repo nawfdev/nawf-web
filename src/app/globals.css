@@ -137,6 +137,38 @@ details[open] .acc-content {
   }
 }
 
+/* Nav links: idle standby glow, breathing sky-400 halo. */
+.nav-glow {
+  animation: nav-glow 3.2s ease-in-out infinite;
+}
+
+@keyframes nav-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 rgba(56, 189, 248, 0);
+  }
+  50% {
+    box-shadow: 0 0 10px 1px rgba(56, 189, 248, 0.35);
+  }
+}
+
+/* Nav links: bright spike on click, settles back to standby glow. */
+.nav-flash {
+  animation: nav-flash 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes nav-flash {
+  0% {
+    box-shadow: 0 0 0 rgba(56, 189, 248, 0);
+  }
+  15% {
+    box-shadow: 0 0 24px 4px rgba(125, 211, 252, 0.9);
+  }
+  100% {
+    box-shadow: 0 0 10px 1px rgba(56, 189, 248, 0.35);
+  }
+}
+
 /* One-shot entrance for the hero panel on page load. */
 .hero-in {
   animation: hero-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
@@ -167,7 +199,9 @@ details[open] .acc-content {
 @media (prefers-reduced-motion: reduce) {
   .marquee,
   .hero-in,
-  .float-slow {
+  .float-slow,
+  .nav-glow,
+  .nav-flash {
     animation: none;
   }
   .card-lift,
