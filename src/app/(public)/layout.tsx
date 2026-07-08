@@ -47,7 +47,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
                 rel="noreferrer"
                 className="w-fit transition-colors hover:text-white"
               >
-                GitHub ↗
+                {"GitHub ↗︎"}
               </a>
               <a
                 href="mailto:ngnawfal808@gmail.com"

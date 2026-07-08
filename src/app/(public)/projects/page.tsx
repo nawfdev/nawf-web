@@ -54,7 +54,7 @@ export default async function ProjectsPage() {
                       </h2>
                       {href && (
                         <span className="text-neutral-500 transition-colors group-hover:text-sky-400">
-                          ↗
+                          {"↗︎"}
                         </span>
                       )}
                     </div>
