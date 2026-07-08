@@ -137,28 +137,6 @@ details[open] .acc-content {
   }
 }
 
-/* Nav links: idle standby glow, steady sky-400 halo (no blinking). */
-.nav-glow {
-  box-shadow: 0 0 10px 1px rgba(56, 189, 248, 0.35);
-}
-
-/* Nav links: bright spike on click, settles back to standby glow. */
-.nav-flash {
-  animation: nav-flash 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-@keyframes nav-flash {
-  0% {
-    box-shadow: 0 0 0 rgba(56, 189, 248, 0);
-  }
-  15% {
-    box-shadow: 0 0 24px 4px rgba(125, 211, 252, 0.9);
-  }
-  100% {
-    box-shadow: 0 0 10px 1px rgba(56, 189, 248, 0.35);
-  }
-}
-
 /* Pill nav container: dark glass capsule wrapping the tab items. */
 .nav-container {
   display: flex;
@@ -195,19 +173,6 @@ details[open] .acc-content {
   font-weight: 600;
 }
 
-/* Thin white indicator line above the active tab. */
-.nav-item.active::before {
-  content: "";
-  position: absolute;
-  top: -4px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 16px;
-  height: 2px;
-  background: #ffffff;
-  border-radius: 2px;
-}
-
 /* One-shot entrance for the hero panel on page load. */
 .hero-in {
   animation: hero-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
@@ -238,9 +203,7 @@ details[open] .acc-content {
 @media (prefers-reduced-motion: reduce) {
   .marquee,
   .hero-in,
-  .float-slow,
-  .nav-glow,
-  .nav-flash {
+  .float-slow {
     animation: none;
   }
   .card-lift,
