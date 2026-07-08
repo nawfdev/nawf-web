@@ -98,7 +98,6 @@ export default async function HomePage() {
   const headlineLead = headlineWords.join(" ");
   const featuredProjects = allProjects.filter((p) => p.featured).slice(0, 3);
   const [firstProject, ...restProjects] = featuredProjects;
-  const moreProjects = allProjects.filter((p) => !p.featured).slice(0, 5);
 
   /* Real language split across public repos on github.com/nawfdev. */
   const languages = [
@@ -177,7 +176,7 @@ export default async function HomePage() {
       </section>
 
       {/* Work: featured showcase + dense index, one section instead of two competing headers */}
-      {(featuredProjects.length > 0 || moreProjects.length > 0) && (
+      {featuredProjects.length > 0 && (
         <section className="flex flex-col gap-8">
           {featuredProjects.length > 0 && (
           <Reveal>
@@ -272,52 +271,6 @@ export default async function HomePage() {
               </Reveal>
             ))}
           </div>
-
-          {/* Project index: dense stack/link directory, nested under Work instead of a competing header */}
-          {moreProjects.length > 0 && (
-          <div className="flex flex-col gap-6 border-t border-white/10 pt-8">
-          <Reveal>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-neutral-400">
-              Also in the stack
-            </h3>
-          </Reveal>
-          <Reveal delay={80}>
-            <div className="-mx-6 overflow-x-auto px-6 pb-2 [mask-image:linear-gradient(to_right,transparent,black_16px,black_calc(100%-16px),transparent)]">
-              <div className="flex snap-x snap-mandatory gap-4">
-                {moreProjects.map((p) => {
-                  const tags =
-                    p.tags?.split(",").map((t) => t.trim()).filter(Boolean) ?? [];
-                  const href = p.url ?? p.repoUrl;
-                  return (
-                    <div
-                      key={p.id}
-                      className="card-lift glass flex w-56 shrink-0 snap-start flex-col gap-3 rounded-2xl p-5"
-                    >
-                      <h3 className="font-medium text-white">{p.title}</h3>
-                      {tags[0] && (
-                        <span className="font-mono text-xs text-neutral-500">
-                          {tags[0]}
-                        </span>
-                      )}
-                      {href && (
-                        <a
-                          href={href}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="mt-auto inline-flex items-center gap-1 text-sm text-sky-400 hover:text-sky-300"
-                        >
-                          {p.url ? "Live" : "Code"}
-                          <ArrowUpRight />
-                        </a>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </Reveal>
-          </div>
-          )}
         </section>
       )}
 
