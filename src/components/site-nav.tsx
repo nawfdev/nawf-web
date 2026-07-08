@@ -25,7 +25,7 @@ export function SiteNav() {
 
   return (
     <header className="sticky top-4 z-50 flex justify-center px-4">
-      <nav className="glass-dark flex w-full max-w-xl items-center justify-between gap-2 rounded-full px-4 py-2 sm:px-2">
+      <nav className="nav-container flex w-full max-w-xl justify-between px-2 sm:px-1">
         <Link href="/" className="px-3 py-1.5 text-sm font-semibold text-white">
           nawf.dev
         </Link>
@@ -38,16 +38,11 @@ export function SiteNav() {
               href={l.href}
               onClick={() => flash(l.href)}
               className={cn(
-                "nav-glow relative rounded-full px-3.5 py-1.5 text-sm transition-colors",
+                "nav-item nav-glow",
                 flashHref === l.href && "nav-flash",
-                pathname === l.href
-                  ? "bg-neutral-800 font-semibold text-white"
-                  : "text-neutral-500 hover:text-white"
+                pathname === l.href && "active"
               )}
             >
-              {pathname === l.href && (
-                <span className="absolute left-1/2 top-0.5 h-[2px] w-5 -translate-x-1/2 rounded-full bg-white/80" />
-              )}
               {l.label}
             </Link>
           ))}
@@ -108,16 +103,11 @@ export function SiteNav() {
                 setOpen(false);
               }}
               className={cn(
-                "nav-glow relative rounded-2xl px-4 py-2.5 text-sm transition-colors",
+                "nav-item nav-glow block w-full text-left",
                 flashHref === l.href && "nav-flash",
-                pathname === l.href
-                  ? "bg-neutral-800 font-semibold text-white"
-                  : "text-neutral-500 hover:text-white"
+                pathname === l.href && "active"
               )}
             >
-              {pathname === l.href && (
-                <span className="absolute left-1/2 top-0.5 h-[2px] w-5 -translate-x-1/2 rounded-full bg-white/80" />
-              )}
               {l.label}
             </Link>
           ))}
