@@ -39,115 +39,97 @@ export default async function ContactPage() {
     : [];
 
   return (
-    <div className="mx-auto flex w-full max-w-3xl flex-col gap-14">
+    <div className="mx-auto flex w-full max-w-4xl flex-col gap-14">
       <Reveal>
-        <header className="flex flex-col items-start gap-3">
-          <span className="glass-accent inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium text-sky-300">
-            <span className="h-1.5 w-1.5 rounded-full bg-sky-400" />
-            Open to new projects
+        <header className="flex flex-col gap-4">
+          <span className="font-mono text-xs tracking-wide text-neutral-500">
+            01 / contact
           </span>
-          <h1 className="text-4xl font-bold leading-[1.05] tracking-tighter text-white sm:text-6xl">
+          <h1 className="max-w-2xl text-4xl font-bold leading-[1.05] tracking-tighter text-white sm:text-6xl">
             Let&apos;s build{" "}
             <span className="font-serif italic text-sky-400">something</span>.
           </h1>
           <p className="max-w-md text-neutral-400">
-            Got a project, a role, or just a question? Drop a line below — I
-            read every message myself.
+            Got a project, a role, or just a question? Drop a line — I read
+            every message myself.
           </p>
         </header>
       </Reveal>
 
-      {info?.email ? (
-        <Reveal delay={100}>
-          <div className="hero-in overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03]">
-            <div className="flex items-center gap-1.5 border-b border-white/10 bg-white/5 px-5 py-3">
-              <span className="h-2.5 w-2.5 rounded-full bg-red-500/70" />
-              <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/70" />
-              <span className="h-2.5 w-2.5 rounded-full bg-green-500/70" />
-              <span className="ml-2 font-mono text-xs text-neutral-500">
-                new-message.eml
-              </span>
-            </div>
-            <div className="flex flex-col gap-6 p-8 sm:p-10">
-              <div className="flex flex-col gap-1 font-mono text-sm">
-                <div className="flex gap-3 text-neutral-500">
-                  <span className="shrink-0">to</span>
-                  <span className="text-neutral-200">{info.email}</span>
-                </div>
-                <div className="flex gap-3 text-neutral-500">
-                  <span className="shrink-0">re</span>
-                  <span className="text-neutral-200">
-                    Let&apos;s work together
-                  </span>
+      <div className="grid gap-10 lg:grid-cols-[1fr_1.15fr] lg:gap-16">
+        <Reveal delay={80}>
+          <div className="flex h-full flex-col">
+            <p className="pb-3 font-mono text-xs text-neutral-500">email</p>
+            {info?.email ? (
+              <div className="flex flex-1 flex-col justify-between gap-6 border-y border-white/10 py-6">
+                <p className="truncate text-2xl font-medium tracking-tight text-neutral-100 sm:text-3xl">
+                  {info.email}
+                </p>
+                <div className="flex flex-wrap items-center gap-3">
+                  <a
+                    href={`mailto:${info.email}`}
+                    className="press inline-flex items-center gap-1.5 rounded-full bg-sky-500 px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-sky-400"
+                  >
+                    Send an email
+                    <ArrowUpRight />
+                  </a>
+                  <CopyEmailButton email={info.email} />
                 </div>
               </div>
+            ) : (
+              <div className="border-y border-white/10 py-10 text-neutral-400">
+                Contact details are on their way.
+              </div>
+            )}
+          </div>
+        </Reveal>
 
-              <div className="flex flex-wrap items-center gap-3">
-                <a
-                  href={`mailto:${info.email}`}
-                  className="press inline-flex items-center gap-2 rounded-full bg-sky-500 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-sky-400"
-                >
-                  Send an email
-                  <ArrowUpRight />
-                </a>
-                <CopyEmailButton email={info.email} />
+        {links.length > 0 && (
+          <Reveal delay={140}>
+            <div className="flex flex-col">
+              <p className="pb-3 font-mono text-xs text-neutral-500">
+                elsewhere
+              </p>
+              <div className="flex flex-col divide-y divide-white/10 border-y border-white/10">
+                {links.map((link, i) => {
+                  const slug = iconSlugFor(link.label);
+                  return (
+                    <Reveal key={link.url} delay={180 + i * 60}>
+                      <a
+                        href={link.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="group flex items-center gap-4 py-4 transition-transform duration-300 hover:translate-x-2"
+                      >
+                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/5">
+                          {slug ? (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img
+                              src={`https://cdn.simpleicons.org/${slug}/e0f2fe`}
+                              alt=""
+                              width={16}
+                              height={16}
+                              loading="lazy"
+                            />
+                          ) : (
+                            <span className="font-mono text-xs text-sky-300">
+                              {link.label.charAt(0).toUpperCase()}
+                            </span>
+                          )}
+                        </span>
+                        <span className="min-w-0 flex-1 truncate font-medium text-neutral-200 transition-colors group-hover:text-white">
+                          {link.label}
+                        </span>
+                        <ArrowUpRight className="shrink-0 text-neutral-500 transition-colors group-hover:text-sky-400" />
+                      </a>
+                    </Reveal>
+                  );
+                })}
               </div>
             </div>
-          </div>
-        </Reveal>
-      ) : (
-        <Reveal delay={100}>
-          <div className="glass rounded-2xl p-10 text-center text-neutral-400">
-            Contact details are on their way.
-          </div>
-        </Reveal>
-      )}
-
-      {links.length > 0 && (
-        <Reveal delay={180}>
-          <div className="flex flex-col gap-5">
-            <h2 className="text-sm font-medium tracking-wide text-neutral-500 uppercase">
-              Elsewhere
-            </h2>
-            <div className="grid gap-3 sm:grid-cols-2">
-              {links.map((link, i) => {
-                const slug = iconSlugFor(link.label);
-                return (
-                  <Reveal key={link.url} delay={i * 80}>
-                    <a
-                      href={link.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="card-lift glass group flex items-center gap-4 rounded-2xl p-5"
-                    >
-                      <span className="glass-accent flex h-11 w-11 shrink-0 items-center justify-center rounded-full">
-                        {slug ? (
-                          // eslint-disable-next-line @next/next/no-img-element
-                          <img
-                            src={`https://cdn.simpleicons.org/${slug}/e0f2fe`}
-                            alt=""
-                            width={18}
-                            height={18}
-                            loading="lazy"
-                          />
-                        ) : (
-                          <span className="font-mono text-sm text-sky-300">
-                            {link.label.charAt(0).toUpperCase()}
-                          </span>
-                        )}
-                      </span>
-                      <span className="min-w-0 flex-1 truncate font-medium text-neutral-200 transition-colors group-hover:text-white">
-                        {link.label}
-                      </span>
-                      <ArrowUpRight className="shrink-0 text-neutral-500 transition-colors group-hover:text-sky-400" />
-                    </a>
-                  </Reveal>
-                );
-              })}
-            </div>
-          </div>
-        </Reveal>
-      )}
+          </Reveal>
+        )}
+      </div>
     </div>
   );
 }
