@@ -38,13 +38,16 @@ export function SiteNav() {
               href={l.href}
               onClick={() => flash(l.href)}
               className={cn(
-                "nav-glow rounded-full px-3.5 py-1.5 text-sm transition-colors",
+                "nav-glow relative rounded-full px-3.5 py-1.5 text-sm transition-colors",
                 flashHref === l.href && "nav-flash",
                 pathname === l.href
-                  ? "bg-sky-500/15 text-sky-300"
-                  : "text-neutral-300 hover:text-white"
+                  ? "bg-neutral-800 font-semibold text-white"
+                  : "text-neutral-500 hover:text-white"
               )}
             >
+              {pathname === l.href && (
+                <span className="absolute left-1/2 top-0.5 h-[2px] w-5 -translate-x-1/2 rounded-full bg-white/80" />
+              )}
               {l.label}
             </Link>
           ))}
@@ -105,13 +108,16 @@ export function SiteNav() {
                 setOpen(false);
               }}
               className={cn(
-                "nav-glow rounded-2xl px-4 py-2.5 text-sm transition-colors",
+                "nav-glow relative rounded-2xl px-4 py-2.5 text-sm transition-colors",
                 flashHref === l.href && "nav-flash",
                 pathname === l.href
-                  ? "bg-sky-500/15 text-sky-300"
-                  : "text-neutral-300 hover:text-white"
+                  ? "bg-neutral-800 font-semibold text-white"
+                  : "text-neutral-500 hover:text-white"
               )}
             >
+              {pathname === l.href && (
+                <span className="absolute left-1/2 top-0.5 h-[2px] w-5 -translate-x-1/2 rounded-full bg-white/80" />
+              )}
               {l.label}
             </Link>
           ))}
