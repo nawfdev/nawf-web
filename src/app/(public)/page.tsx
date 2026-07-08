@@ -216,12 +216,6 @@ export default async function HomePage() {
       {/* Work: featured showcase + dense index, one section instead of two competing headers */}
       {(featuredProjects.length > 0 || moreProjects.length > 0) && (
         <section className="flex flex-col gap-8">
-          <Reveal>
-            <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-sky-400">
-              Work
-            </p>
-          </Reveal>
-
           {featuredProjects.length > 0 && (
           <Reveal>
             <div className="flex items-baseline justify-between">
@@ -388,10 +382,7 @@ export default async function HomePage() {
       {/* Services: large-type interactive rows */}
       <section className="flex flex-col">
         <Reveal>
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-sky-400">
-            Services
-          </p>
-          <h2 className="pb-6 pt-3 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+          <h2 className="pb-6 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
             What I do
           </h2>
         </Reveal>
@@ -421,10 +412,7 @@ export default async function HomePage() {
       {/* Process: numbered timeline, vertical on mobile, horizontal on desktop */}
       <section className="flex flex-col gap-10">
         <Reveal>
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-sky-400">
-            Process
-          </p>
-          <h2 className="pt-3 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+          <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
             How I work
           </h2>
         </Reveal>
@@ -451,9 +439,6 @@ export default async function HomePage() {
       {/* GitHub activity: real contribution graph */}
       <section className="flex flex-col gap-8">
         <Reveal>
-          <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-sky-400">
-            Activity
-          </p>
           <div className="flex items-baseline justify-between">
             <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
               GitHub activity
@@ -487,9 +472,6 @@ export default async function HomePage() {
       {latestPosts.length > 0 && (
         <section className="flex flex-col gap-2">
           <Reveal>
-            <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-sky-400">
-              Writing
-            </p>
             <div className="flex items-baseline justify-between pb-4">
               <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
                 Latest posts
