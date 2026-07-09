@@ -16,26 +16,26 @@ const geistMono = Geist_Mono({
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://nawf.dev";
 
+const siteDescription =
+  "Kaysan Nawfal Rafi (ngnawfal, nawfdev) — full-stack developer from Indonesia building web platforms, POS systems, and automation tools.";
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Nawfal — Software Engineer",
+    default: "Kaysan Nawfal Rafi — Software Engineer",
     template: "%s — nawf.dev",
   },
-  description:
-    "Full-stack developer building web platforms, POS systems, and automation tools.",
+  description: siteDescription,
   openGraph: {
     type: "website",
     siteName: "nawf.dev",
-    title: "Nawfal — Software Engineer",
-    description:
-      "Full-stack developer building web platforms, POS systems, and automation tools.",
+    title: "Kaysan Nawfal Rafi — Software Engineer",
+    description: siteDescription,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nawfal — Software Engineer",
-    description:
-      "Full-stack developer building web platforms, POS systems, and automation tools.",
+    title: "Kaysan Nawfal Rafi — Software Engineer",
+    description: siteDescription,
   },
 };
 
@@ -60,8 +60,9 @@ export default async function RootLayout({
     "@graph": [
       {
         "@type": "Person",
-        name: "Nawfal",
-        alternateName: ["ngnawfal", "nawfdev"],
+        name: "Kaysan Nawfal Rafi",
+        alternateName: ["Nawfal", "ngnawfal", "nawfdev"],
+        description: siteDescription,
         url: siteUrl,
         jobTitle: "Software Engineer",
         sameAs,
