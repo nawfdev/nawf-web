@@ -32,6 +32,25 @@ function iconSlugFor(label: string) {
   return iconSlugs[key] ?? null;
 }
 
+const faq = [
+  {
+    q: "What should I include?",
+    a: "A short brief of what you're building, a rough timeline, and a budget range if you have one. A loose idea is fine too — we can shape the scope together.",
+  },
+  {
+    q: "How fast do you reply?",
+    a: "I read every message myself and reply within a couple of days, sometimes sooner. No support ticket queue, no auto-responder.",
+  },
+  {
+    q: "Do you work on fixed rate or hourly?",
+    a: "Either, depending on how well-defined the project is. Fixed rate for scoped work, hourly for ongoing or exploratory work.",
+  },
+  {
+    q: "Can we sign an NDA first?",
+    a: "Yes. Happy to sign one before we get into specifics if the project needs it.",
+  },
+];
+
 export default async function ContactPage() {
   const [info] = await db.select().from(contactInfo).limit(1);
   const links: { label: string; url: string }[] = info?.socialLinks
@@ -39,14 +58,15 @@ export default async function ContactPage() {
     : [];
 
   return (
-    <div className="mx-auto flex w-full max-w-4xl flex-col gap-14">
+    <div className="mx-auto flex w-full max-w-4xl flex-col gap-16">
       <Reveal>
-        <header className="flex flex-col gap-4">
+        <header className="bg-dots -mx-6 flex flex-col gap-4 rounded-2xl px-6 py-10 sm:py-14">
           <span className="font-mono text-xs tracking-wide text-neutral-500">
             01 / contact
           </span>
-          <h1 className="max-w-2xl text-4xl font-bold leading-[1.05] tracking-tighter text-white sm:text-6xl">
-            Let&apos;s build{" "}
+          <h1 className="max-w-2xl text-5xl font-bold leading-[1.02] tracking-tighter text-white sm:text-7xl">
+            Let&apos;s build
+            <br />
             <span className="font-serif italic text-sky-400">something</span>.
           </h1>
           <p className="max-w-md text-neutral-400">
@@ -130,6 +150,35 @@ export default async function ContactPage() {
           </Reveal>
         )}
       </div>
+
+      <section className="flex flex-col">
+        <Reveal>
+          <p className="pb-3 font-mono text-xs text-neutral-500">
+            02 / before you reach out
+          </p>
+        </Reveal>
+        <div className="flex flex-col divide-y divide-white/10 border-y border-white/10">
+          {faq.map((item, i) => (
+            <Reveal key={item.q} delay={i * 80}>
+              <details className="group">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-6 transition-transform duration-300 hover:translate-x-2 [&::-webkit-details-marker]:hidden">
+                  <h3 className="text-lg font-semibold tracking-tight text-neutral-200 transition-colors group-hover:text-sky-400 group-open:text-sky-400 sm:text-xl">
+                    {item.q}
+                  </h3>
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/5 text-lg text-neutral-300 transition-transform duration-300 group-open:rotate-45">
+                    +
+                  </span>
+                </summary>
+                <div className="acc-content pb-6">
+                  <p className="max-w-xl text-sm leading-relaxed text-neutral-400 sm:text-base">
+                    {item.a}
+                  </p>
+                </div>
+              </details>
+            </Reveal>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
