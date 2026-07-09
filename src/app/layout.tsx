@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { db } from "@/db";
+import { contactInfo } from "@/db/schema";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -37,29 +39,41 @@ export const metadata: Metadata = {
   },
 };
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Person",
-      name: "Nawfal",
-      url: siteUrl,
-      jobTitle: "Software Engineer",
-      sameAs: ["https://github.com/nawfdev"],
-    },
-    {
-      "@type": "WebSite",
-      name: "nawf.dev",
-      url: siteUrl,
-    },
-  ],
-};
-
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [info] = await db.select().from(contactInfo).limit(1);
+  const socialLinks: { label: string; url: string }[] = info?.socialLinks
+    ? JSON.parse(info.socialLinks)
+    : [];
+  const sameAs = Array.from(
+    new Set([
+      "https://github.com/nawfdev",
+      ...socialLinks.map((l) => l.url),
+    ])
+  );
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        name: "Nawfal",
+        alternateName: ["ngnawfal", "nawfdev"],
+        url: siteUrl,
+        jobTitle: "Software Engineer",
+        sameAs,
+      },
+      {
+        "@type": "WebSite",
+        name: "nawf.dev",
+        url: siteUrl,
+      },
+    ],
+  };
+
   return (
     <html
       lang="en"

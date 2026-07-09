@@ -19,7 +19,7 @@ export async function GET() {
     .orderBy(desc(posts.publishedAt));
 
   const lines = [
-    `# nawf.dev`,
+    `# nawf.dev — Nawfal (aka ngnawfal, nawfdev)`,
     ``,
     `> ${about?.bio ?? "Full-stack developer building web platforms, POS systems, and automation tools."}`,
     ``,
