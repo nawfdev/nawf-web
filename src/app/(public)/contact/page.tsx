@@ -51,6 +51,12 @@ const faq = [
   },
 ];
 
+const sections = [
+  { id: "email", label: "Email" },
+  { id: "elsewhere", label: "Elsewhere" },
+  { id: "faq", label: "FAQ" },
+];
+
 export default async function ContactPage() {
   const [info] = await db.select().from(contactInfo).limit(1);
   const links: { label: string; url: string }[] = info?.socialLinks
@@ -58,33 +64,43 @@ export default async function ContactPage() {
     : [];
 
   return (
-    <div className="mx-auto flex w-full max-w-4xl flex-col gap-16">
+    <div className="mx-auto grid w-full max-w-5xl gap-12 lg:grid-cols-[200px_1fr] lg:gap-20">
       <Reveal>
-        <header className="bg-dots -mx-6 flex flex-col gap-4 rounded-2xl px-6 py-10 sm:py-14">
-          <span className="font-mono text-xs tracking-wide text-neutral-500">
-            01 / contact
-          </span>
-          <h1 className="max-w-2xl text-5xl font-bold leading-[1.02] tracking-tighter text-white sm:text-7xl">
-            No forms, no{" "}
-            <span className="font-serif italic text-sky-400">chatbot</span>.
-          </h1>
-          <p className="max-w-md text-neutral-400">
-            Whatever you send goes straight to my inbox. Email, or pick a
-            link below.
-          </p>
-        </header>
+        <aside className="flex flex-col gap-8 lg:sticky lg:top-28 lg:self-start">
+          <div>
+            <p className="font-mono text-xs text-neutral-500">01</p>
+            <h1 className="mt-2 text-2xl font-semibold tracking-tight text-white">
+              Contact
+            </h1>
+            <p className="mt-3 max-w-[22ch] text-sm leading-relaxed text-neutral-400">
+              No forms, no chatbot. Whatever you send goes straight to my
+              inbox.
+            </p>
+          </div>
+          <nav className="flex flex-row gap-4 border-t border-white/10 pt-5 text-sm lg:flex-col lg:gap-2.5">
+            {sections.map((s) => (
+              <a
+                key={s.id}
+                href={`#${s.id}`}
+                className="text-neutral-500 transition-colors hover:text-sky-400"
+              >
+                {s.label}
+              </a>
+            ))}
+          </nav>
+        </aside>
       </Reveal>
 
-      <div className="grid gap-10 lg:grid-cols-[1fr_1.15fr] lg:gap-16">
-        <Reveal delay={80}>
-          <div className="flex h-full flex-col">
+      <div className="flex flex-col gap-14">
+        <section id="email" className="scroll-mt-28">
+          <Reveal delay={60}>
             <p className="pb-3 font-mono text-xs text-neutral-500">email</p>
             {info?.email ? (
-              <div className="flex flex-1 flex-col justify-between gap-6 border-y border-white/10 py-6">
+              <div className="flex flex-col justify-between gap-6 border-y border-white/10 py-6 sm:flex-row sm:items-center">
                 <p className="truncate text-2xl font-medium tracking-tight text-neutral-100 sm:text-3xl">
                   {info.email}
                 </p>
-                <div className="flex flex-wrap items-center gap-3">
+                <div className="flex shrink-0 flex-wrap items-center gap-3">
                   <a
                     href={`mailto:${info.email}`}
                     className="press inline-flex items-center gap-1.5 rounded-full bg-sky-500 px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-sky-400"
@@ -100,84 +116,82 @@ export default async function ContactPage() {
                 Contact details are on their way.
               </div>
             )}
-          </div>
-        </Reveal>
+          </Reveal>
+        </section>
 
         {links.length > 0 && (
-          <Reveal delay={140}>
-            <div className="flex flex-col">
+          <section id="elsewhere" className="scroll-mt-28">
+            <Reveal delay={100}>
               <p className="pb-3 font-mono text-xs text-neutral-500">
                 elsewhere
               </p>
-              <div className="flex flex-col divide-y divide-white/10 border-y border-white/10">
-                {links.map((link, i) => {
-                  const slug = iconSlugFor(link.label);
-                  return (
-                    <Reveal key={link.url} delay={180 + i * 60}>
-                      <a
-                        href={link.url}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="group flex items-center gap-4 py-4 transition-transform duration-300 hover:translate-x-2"
-                      >
-                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/5">
-                          {slug ? (
-                            // eslint-disable-next-line @next/next/no-img-element
-                            <img
-                              src={`https://cdn.simpleicons.org/${slug}/e0f2fe`}
-                              alt=""
-                              width={16}
-                              height={16}
-                              loading="lazy"
-                            />
-                          ) : (
-                            <span className="font-mono text-xs text-sky-300">
-                              {link.label.charAt(0).toUpperCase()}
-                            </span>
-                          )}
-                        </span>
-                        <span className="min-w-0 flex-1 truncate font-medium text-neutral-200 transition-colors group-hover:text-white">
-                          {link.label}
-                        </span>
-                        <ArrowUpRight className="shrink-0 text-neutral-500 transition-colors group-hover:text-sky-400" />
-                      </a>
-                    </Reveal>
-                  );
-                })}
-              </div>
-            </div>
-          </Reveal>
-        )}
-      </div>
-
-      <section className="flex flex-col">
-        <Reveal>
-          <p className="pb-3 font-mono text-xs text-neutral-500">
-            02 / before you reach out
-          </p>
-        </Reveal>
-        <div className="flex flex-col divide-y divide-white/10 border-y border-white/10">
-          {faq.map((item, i) => (
-            <Reveal key={item.q} delay={i * 80}>
-              <details className="group">
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-6 transition-transform duration-300 hover:translate-x-2 [&::-webkit-details-marker]:hidden">
-                  <h3 className="text-lg font-semibold tracking-tight text-neutral-200 transition-colors group-hover:text-sky-400 group-open:text-sky-400 sm:text-xl">
-                    {item.q}
-                  </h3>
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/5 text-lg text-neutral-300 transition-transform duration-300 group-open:rotate-45">
-                    +
-                  </span>
-                </summary>
-                <div className="acc-content pb-6">
-                  <p className="max-w-xl text-sm leading-relaxed text-neutral-400 sm:text-base">
-                    {item.a}
-                  </p>
-                </div>
-              </details>
             </Reveal>
-          ))}
-        </div>
-      </section>
+            <div className="flex flex-col divide-y divide-white/10 border-y border-white/10">
+              {links.map((link, i) => {
+                const slug = iconSlugFor(link.label);
+                return (
+                  <Reveal key={link.url} delay={120 + i * 60}>
+                    <a
+                      href={link.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="group flex items-center gap-4 py-4 transition-transform duration-300 hover:translate-x-2"
+                    >
+                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/5">
+                        {slug ? (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img
+                            src={`https://cdn.simpleicons.org/${slug}/e0f2fe`}
+                            alt=""
+                            width={16}
+                            height={16}
+                            loading="lazy"
+                          />
+                        ) : (
+                          <span className="font-mono text-xs text-sky-300">
+                            {link.label.charAt(0).toUpperCase()}
+                          </span>
+                        )}
+                      </span>
+                      <span className="min-w-0 flex-1 truncate font-medium text-neutral-200 transition-colors group-hover:text-white">
+                        {link.label}
+                      </span>
+                      <ArrowUpRight className="shrink-0 text-neutral-500 transition-colors group-hover:text-sky-400" />
+                    </a>
+                  </Reveal>
+                );
+              })}
+            </div>
+          </section>
+        )}
+
+        <section id="faq" className="scroll-mt-28">
+          <Reveal>
+            <p className="pb-3 font-mono text-xs text-neutral-500">faq</p>
+          </Reveal>
+          <div className="flex flex-col divide-y divide-white/10 border-y border-white/10">
+            {faq.map((item, i) => (
+              <Reveal key={item.q} delay={i * 80}>
+                <details className="group">
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-6 transition-transform duration-300 hover:translate-x-2 [&::-webkit-details-marker]:hidden">
+                    <h2 className="text-lg font-semibold tracking-tight text-neutral-200 transition-colors group-hover:text-sky-400 group-open:text-sky-400 sm:text-xl">
+                      {item.q}
+                    </h2>
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/5 text-lg text-neutral-300 transition-transform duration-300 group-open:rotate-45">
+                      +
+                    </span>
+                  </summary>
+                  <div className="acc-content pb-6">
+                    <p className="max-w-xl text-sm leading-relaxed text-neutral-400 sm:text-base">
+                      {item.a}
+                    </p>
+                  </div>
+                </details>
+              </Reveal>
+            ))}
+          </div>
+        </section>
+      </div>
     </div>
   );
 }
