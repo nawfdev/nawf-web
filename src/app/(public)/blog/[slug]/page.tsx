@@ -52,8 +52,30 @@ export default async function BlogPostPage({
 
   if (!post || !post.published) notFound();
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://nawf.dev";
+  const image = post.coverImage ?? `https://picsum.photos/seed/${post.slug}/1600/840`;
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.excerpt ?? post.content.slice(0, 160),
+    image,
+    url: `${siteUrl}/blog/${post.slug}`,
+    datePublished: post.publishedAt
+      ? new Date(post.publishedAt).toISOString()
+      : undefined,
+    dateModified: post.updatedAt
+      ? new Date(post.updatedAt).toISOString()
+      : undefined,
+    author: { "@type": "Person", name: "Nawfal", url: siteUrl },
+  };
+
   return (
     <article className="mx-auto flex w-full max-w-3xl flex-col gap-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <header className="flex flex-col gap-4">
         <Link
           href="/blog"
