@@ -65,13 +65,12 @@ export default async function ContactPage() {
             01 / contact
           </span>
           <h1 className="max-w-2xl text-5xl font-bold leading-[1.02] tracking-tighter text-white sm:text-7xl">
-            Let&apos;s build
-            <br />
-            <span className="font-serif italic text-sky-400">something</span>.
+            No forms, no{" "}
+            <span className="font-serif italic text-sky-400">chatbot</span>.
           </h1>
           <p className="max-w-md text-neutral-400">
-            Got a project, a role, or just a question? Drop a line — I read
-            every message myself.
+            Whatever you send goes straight to my inbox. Email, or pick a
+            link below.
           </p>
         </header>
       </Reveal>
